@@ -66,48 +66,54 @@ INSERT INTO DEPT (DEPTNO, DNAME, LOC) VALUES (40, 'OPERATIONS', 'BOSTON');
 ```
 
 ### Q1) List the name of the employees whose salary is greater than that of employee with empno 7566.
-
-
 ### QUERY:
-
-
+```sql
+SELECT ename FROM em WHERE sal > (SELECT sal FROM em WHERE empno = 7566);
+```
 ### OUTPUT:
+![1](https://github.com/Ronick2005/EX-3-SubQueries-Views-and-Joins/assets/83219341/6a81fa9e-f979-4c22-846e-4058779199f8)
 
 ### Q2) List the ename,job,sal of the employee who get minimum salary in the company.
-
 ### QUERY:
-
-
+```sql
+SELECT ename,job,sal FROM em WHERE sal = (SELECT MIN(sal) FROM em);
+```
 ### OUTPUT:
+![2](https://github.com/Ronick2005/EX-3-SubQueries-Views-and-Joins/assets/83219341/f3b9af94-7b01-4b49-94d5-c480bd280e47)
 
 ### Q3) List ename, job of the employees who work in deptno 10 and his/her job is any one of the job in the department ‘SALES’.
-
 ### QUERY:
-
-
+```sql
+SELECT ename,job FROM em WHERE deptno = 10 AND job IN (SELECT job FROM emp WHERE job = 'sales');
+```
 ### OUTPUT:
-
+![3](https://github.com/Ronick2005/EX-3-SubQueries-Views-and-Joins/assets/83219341/5eb29c3e-b5af-4a20-ac3d-364ecc44e4bb)
 
 ### Q4) Create a view empv5 (for the table emp) that contains empno, ename, job of the employees who work in dept 10.
-
 ### QUERY:
-
-
+```sql
+CREATE VIEW emv5 AS SELECT empno,ename,job from em WHERE deptno = 10;
+SELECT ename FROM emv5;
+```
 ### OUTPUT:
+![4](https://github.com/Ronick2005/EX-3-SubQueries-Views-and-Joins/assets/83219341/b8fdbe8a-495c-4e4f-8d57-99445dcc3a43)
 
 ### Q5) Create a view with column aliases empv30 that contains empno, ename, sal of the employees who work in dept 30. Also display the contents of the view.
-
 ### QUERY:
-
-
+```sql
+CREATE VIEW emv30 AS SELECT empno AS "Employee Number",ename AS "Employee Nmae",sal AS "Salary" from em WHERE deptno = 30;
+SELECT * FROM emv30;
+```
 ### OUTPUT:
+![5](https://github.com/Ronick2005/EX-3-SubQueries-Views-and-Joins/assets/83219341/2dbabee2-80d9-4ea5-a201-936fa8260279)
 
 ### Q6) Update the view empv5 by increasing 10% salary of the employees who work as ‘CLERK’. Also confirm the modifications in emp table
-
 ### QUERY:
-
-
+```sql
+UPDATE emv5 SET sal = al * 1.1 WHERE job = 'CLERK';
+```
 ### OUTPUT:
+![6](https://github.com/Ronick2005/EX-3-SubQueries-Views-and-Joins/assets/83219341/dfc450ef-2376-4a76-b1c5-cd1c99850ac9)
 
 ## Create a Customer1 Table
 ```sql
@@ -138,30 +144,44 @@ INSERT INTO Salesman1 (salesman_id, name, city, commission) VALUES(5007, 'Paul A
 INSERT INTO Salesman1 (salesman_id, name, city, commission) VALUES(5003, 'Lauson Hen', 'San Jose', 0.12);
 ```
 ### Q7) Write a SQL query to find the salesperson and customer who reside in the same city. Return Salesman, cust_name and city.
-
 ### QUERY:
-
-
+```sql
+SELECT salesman1.name AS "Salesman",customer1.cust_name AS "Customer Name",sales1.city AS "City" from salesman1 INNER JOIN customer1 ON salesman1.city = customer.city;
+```
 ### OUTPUT:
+![7](https://github.com/Ronick2005/EX-3-SubQueries-Views-and-Joins/assets/83219341/82b24c52-b3f2-4917-8a03-65c94d27f1b9)
 
 ### Q8) Write a SQL query to find salespeople who received commissions of more than 13 percent from the company. Return Customer Name, customer city, Salesman, commission.
-
-
 ### QUERY:
-
-
+```sql
+SELECT customer1.cust_name AS "Customer Name",customer1.city AS "Customer City",salesman1.name AS "Salesman",salesman1.commission AS "Commission" FROM salesman1 INNER JOIN customer1 ON salesman.salesman_id = customer1.salesman_id WHERE salesman1.commission  > 0.13;
+```
 ### OUTPUT:
+![8](https://github.com/Ronick2005/EX-3-SubQueries-Views-and-Joins/assets/83219341/b048a91c-00f2-436e-8512-55ff757f72df)
 
 ### Q9) Perform Natural join on both tables
-
 ### QUERY:
-
-
+```sql
+SELECT customer1.cust_name AS "Customer Name",customer1.city AS "Customer City",salesman1.name AS "Salesman",salesman1.commission AS "Commission" FROM salesman1 INNER JOIN customer1 ON salesman.salesman_id = customer1.salesman_id WHERE salesman1.commission  > 0.13;
+```
 ### OUTPUT:
+![9](https://github.com/Ronick2005/EX-3-SubQueries-Views-and-Joins/assets/83219341/2ed8bdfb-a77a-4775-b23e-22a80cc5eb00)
 
 ### Q10) Perform Left and right join on both tables
-
 ### QUERY:
+## LEFT JOIN:
+```sql
+SELECT * FROM salesman1 LEFT JOIN customer1 ON salesman1.salesman_id = customer1.salesman_id;
+```
+## OUTPUT:
+![10_LJ](https://github.com/Ronick2005/EX-3-SubQueries-Views-and-Joins/assets/83219341/503ed5ef-3b4b-4ff7-9766-5710f058e197)
 
+## RIGHT JOIN:
+```sql
+SELECT * FROM salesman1 RIGHT JOIN customer1 ON salesman1.salesman_id = customer1.salesman_id;
+```
+## OUTPUT:
+![10_RJ](https://github.com/Ronick2005/EX-3-SubQueries-Views-and-Joins/assets/83219341/d250e55f-4408-490d-9aac-5629d3c77b26)
 
-### OUTPUT:
+### RESULT:
+Hence successfully created SubQueries, Views and Joins.
